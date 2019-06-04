@@ -1,6 +1,7 @@
 int pos;
 // int flag = 150;
-int adcal[5] = {30, 30, 29, 29, 32};
+// int adcal[5] = {28, 28, 27, 27, 30};
+int adcal[5] = {32,32, 32, 32, 40};
 int a[5]; // analog value for each sensor
 
 //float lr_ratio = 1.2;
@@ -20,13 +21,13 @@ void doDcSpeed(int spdL, int spdR)
 
 	if (spdR < 0)
 	{
-		analogWrite(9, 0);
-		analogWrite(6, -spdR);
+		analogWrite(6, 0);
+		analogWrite(9, -spdR);
 	}
 	else
 	{
-		analogWrite(9, spdR);
-		analogWrite(6, 0);
+		analogWrite(6, spdR);
+		analogWrite(9, 0);
 	}
 }
 
@@ -85,7 +86,7 @@ void stateMachine(int a)
 }
 
 //PID算法部分
-float Kp = 110;
+float Kp = 150;
 float Ki = 0.15; // 0.15
 float Kd = 1200; //1200
 float error, errorLast, erroInte;
@@ -259,7 +260,7 @@ void parseCmd(char *cmd)
 
 void setup()
 {
-	Serial.begin(115200);
+	Serial.begin(9600);
 	echoVersion();
 }
 
