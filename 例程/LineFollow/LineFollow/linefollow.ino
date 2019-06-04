@@ -1,7 +1,7 @@
 int pos;
 // int flag = 150;
 // int adcal[5] = {28, 28, 27, 27, 30};
-int adcal[5] = {32,32, 32, 32, 40};
+int adcal[5] = {340, 337, 350, 335, 383};
 int a[5]; // analog value for each sensor
 
 //float lr_ratio = 1.2;
@@ -86,9 +86,9 @@ void stateMachine(int a)
 }
 
 //PID算法部分
-float Kp = 150;
-float Ki = 0.15; // 0.15
-float Kd = 1200; //1200
+float Kp = 120;
+float Ki = 0; // 0.15
+float Kd = 0; //1200
 float error, errorLast, erroInte;
 
 float calcPid(float input)
