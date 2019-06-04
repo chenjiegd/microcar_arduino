@@ -11,11 +11,12 @@
 uint8_t i;
 int buzzer = 12; //设置控制蜂鸣器的引脚
 int blink = 13;
+int key = 8; //按键key
 
-int Echo = A5; // Echo回声脚(P2.0)
-int Trig = A4; //  Trig 触发脚(P2.1)
+int Echo = 3; // Echo回声脚
+int Trig = 4; // Trig触发脚
 
-int Distance = 0;
+int distance = 0;
 
 void setup()
 {
@@ -28,6 +29,7 @@ void setup()
 	pinMode(R_Motor_PIN2, OUTPUT);
 	pinMode(buzzer, OUTPUT); //设置数字IO脚模式，OUTPUT为输出
 	pinMode(blink, OUTPUT);
+	pinMode(key, INPUT); //定义按键输入脚
 
 	//初始化超声波引脚
 	pinMode(Echo, INPUT);  // 定义超声波输入脚
@@ -44,7 +46,7 @@ void loop()
 {
 	// put your main code here, to run repeatedly:
 	// Car_run
-	// run(255);
+	//run(255);
 	// delay(3000);
 	// run(50);
 	// delay(3000);
@@ -58,6 +60,28 @@ void loop()
 	// delay(1000);
 
 	//Ultrasonic_avoid
+	keysacn();
+	while (1)
+	{
+		/* code */
+		distance_test(); //测量前方距离
+		if (distance < 50)
+		{
+			while (distance < 50)
+			{
+				/* code */
+				right(100);
+				delay(20);
+				stop();
+				distance_test(); //测量前方距离
+			}
+		}
+		else
+		{
+			/* code */
+			run(250); //无障碍物，前进
+		}
+	}
 }
 
 /**
@@ -83,12 +107,12 @@ void keysacn() //按键扫描
 		val = digitalRead(key); //读取数字7 口电平值赋给val
 		if (val == HIGH)		//第二次判断按键是否被按下
 		{
-			digitalWrite(beep, HIGH);	//蜂鸣器响
-			while (!digitalRead(key))	//判断按键是否被松开
-				digitalWrite(beep, LOW); //蜂鸣器停止
+			digitalWrite(buzzer, HIGH);	//蜂鸣器响
+			while (!digitalRead(key))	  //判断按键是否被松开
+				digitalWrite(buzzer, LOW); //蜂鸣器停止
 		}
 		else
-			digitalWrite(beep, LOW); //蜂鸣器停止
+			digitalWrite(buzzer, LOW); //蜂鸣器停止
 	}
 }
 
@@ -113,7 +137,7 @@ void distance_test() // 量出前方距离
 	// X秒=（ 2*Y米）/344 ==》X秒=0.0058*Y米 ==》厘米=微秒/58
 	Serial.print("Distance:"); //输出距离（单位：厘米）
 	Serial.println(Fdistance); //显示距离
-	Distance = Fdistance;
+	distance = Fdistance;
 }
 
 /**
@@ -150,10 +174,10 @@ void run(int Speed)
 {
 	digitalWrite(L_Motor_PIN1, HIGH);
 	digitalWrite(L_Motor_PIN2, LOW);
-	analogWrite(L_Motor_PIN1, Speed);
-	analogWrite(L_Motor_PIN2, 0);
 	digitalWrite(R_Motor_PIN1, LOW);
 	digitalWrite(R_Motor_PIN2, HIGH);
+	analogWrite(L_Motor_PIN1, Speed);
+	analogWrite(L_Motor_PIN2, 0);
 	analogWrite(R_Motor_PIN1, 0);
 	analogWrite(R_Motor_PIN2, Speed);
 }
@@ -265,5 +289,27 @@ void spin_right(int Speed)
 	digitalWrite(R_Motor_PIN1, HIGH);
 	digitalWrite(R_Motor_PIN2, LOW);
 	analogWrite(R_Motor_PIN1, Speed);
+	analogWrite(R_Motor_PIN2, 0);
+}
+
+/**
+* Function       stop
+* @author        wusicaijuan
+* @date          2019.06.04
+* @brief         小车停止
+* @param[in]     Speed
+* @param[out]    void
+* @retval        void
+* @par History   无
+*/
+void stop()
+{
+	digitalWrite(L_Motor_PIN1, LOW);
+	digitalWrite(L_Motor_PIN2, LOW);
+	analogWrite(L_Motor_PIN1, 0);
+	analogWrite(L_Motor_PIN2, 0);
+	digitalWrite(R_Motor_PIN1, LOW);
+	digitalWrite(R_Motor_PIN2, LOW);
+	analogWrite(R_Motor_PIN1, 0);
 	analogWrite(R_Motor_PIN2, 0);
 }
