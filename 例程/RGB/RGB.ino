@@ -20,6 +20,7 @@ void loop()
 	// put your main code here, to run repeatedly:
 	// strip.setPixelColor(i, color);  //设置i的值控制点亮灯的序号，color控制灯的颜，这里是让0号灯为红色
 	// strip.show();
+
 	all_RGB(255, 0, 0);
 	delay(1000);
 	all_RGB(0, 255, 0);
@@ -29,6 +30,8 @@ void loop()
 	strip.clear();
 	strip.show();
 	delay(1000);
+
+	// water_light(255, 0, 0, 100);
 }
 
 /**
@@ -57,11 +60,34 @@ void all_RGB(int R, int G, int B)
 * @author        wusicaijuan
 * @date          2019.06.04
 * @brief         流水灯
-* @param[in1]    void
+* @param[in1]    R
+* @param[in2]    G
+* @param[in3]    B
+* @param[in4]    time
 * @retval        void
 * @par History   无
 */
-void water_light()
+void water_light(int R, int G, int B, int time)
 {
-	
+	uint32_t color = strip.Color(G, R, B);
+	uint32_t quench = strip.Color(0, 0, 0);
+	for (uint8_t i = 0; i <= 4; i++)
+	{
+		for (uint8_t j = 0; j <= i; j++)
+		{
+			strip.setPixelColor(j, color);
+			strip.show();
+			delay(time);
+		}
+	}
+	for (uint8_t i = 5; i >= 1; i--)
+	{
+		for (uint8_t j = 5; j >= i; j--)
+		{
+			strip.setPixelColor(j-1, quench);
+			strip.show();
+			delay(time);
+		}
+	}
+	delay(100);
 }
