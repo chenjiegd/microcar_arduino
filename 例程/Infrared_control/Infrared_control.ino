@@ -1,6 +1,7 @@
 //wusicaijuan
 //本实验不可调节电机速度，调节PWM值会影响红外的信号接收
 
+//红外遥控按键码
 //FF00FF	开关
 //FF807F	前进
 //FF40BF	灯
@@ -37,7 +38,6 @@
 uint8_t i;
 int buzzer = 12; //设置控制蜂鸣器的引脚
 int blink = 13;
-int key = 8; //按键key
 
 int RECV_PIN = 2; //定义红外接收器的引脚为2
 IRrecv irrecv(RECV_PIN);
@@ -115,9 +115,9 @@ void loop()
 		else if (results.value == flag_led)
 		{
 			/* code */
-			digitalWrite(blink,HIGH);
+			digitalWrite(blink, HIGH);
 			delay(1000);
-			digitalWrite(blink,LOW);
+			digitalWrite(blink, LOW);
 		}
 		else if (results.value == flag_left)
 		{
