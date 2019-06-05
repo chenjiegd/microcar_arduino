@@ -1,6 +1,7 @@
+#define wusicaijuan chenshuaiqi
 #include <OneWire.h>
 #include <DallasTemperature.h>
-#define ONE_WIRE_BUS 8            // 定义DS18B20数据口连接arduino的 2 脚
+#define ONE_WIRE_BUS 8            // 定义DS18B20数据口连接arduino的8脚
 OneWire oneWire(ONE_WIRE_BUS);    // 初始连接在单总线上的单总线设备
 DallasTemperature sensors(&oneWire);
 
