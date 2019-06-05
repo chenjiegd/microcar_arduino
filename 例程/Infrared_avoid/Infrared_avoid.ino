@@ -11,10 +11,8 @@
 uint8_t i;
 int buzzer = 12; //设置控制蜂鸣器的引脚
 int blink = 13;
-int key = 8; //按键key
-int infrared;//红外避障状态
-
-int infrared = A7;
+int key = 8;  //按键key
+int infrared; //红外避障状态
 
 int Echo = 3; // Echo回声脚
 int Trig = 4; // Trig触发脚
@@ -92,13 +90,38 @@ void loop()
 	while (1)
 	{
 		/* code */
-		infrared = 
+		infrared_avoid(850,200,100);
 	}
-	
 }
 
 /**
-* Function       
+* Function       infrared_avoid
+* @author        wusicaijuan
+* @date          2019.06.04
+* @brief         红外避障
+* @param[in1]    infrared_data
+* @param[in2]	 run_speed
+* @param[in3]	 spin_right_speed
+* @retval        void
+* @par History   无
+*/
+void infrared_avoid(int infrared_data, int run_speed, int spin_right_speed)
+{
+	infrared = analogRead(A7);
+	Serial.println(infrared);
+	if (infrared > 850)
+	{
+		run(run_speed);
+	}
+	else
+	{
+		spin_right(spin_right_speed);
+		delay(20);
+	}
+}
+
+/**
+* Function       keysacn
 * @author        wusicaijuan
 * @date          2019.06.04
 * @brief         测距
