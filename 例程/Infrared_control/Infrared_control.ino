@@ -109,34 +109,45 @@ void loop()
 		else if (results.value == flag_run)
 		{
 			/* code */
+			run(200);
 		}
 		else if (results.value == flag_led)
 		{
 			/* code */
+			digitalWrite(blink,HIGH);
+			delay(1000);
+			digitalWrite(blink,LOW);
 		}
 		else if (results.value == flag_left)
 		{
 			/* code */
+			left(200);
 		}
 		else if (results.value == flag_buzzer)
 		{
 			/* code */
+			whistle();
+			stop();
 		}
 		else if (results.value == flag_right)
 		{
 			/* code */
+			right(200);
 		}
 		else if (results.value == flag_spin_left)
 		{
 			/* code */
+			spin_left(200);
 		}
 		else if (results.value == flag_back)
 		{
 			/* code */
+			back(200);
 		}
 		else if (results.value == flag_spin_right)
 		{
 			/* code */
+			spin_right(200);
 		}
 		else if (results.value == flag_plus)
 		{
@@ -188,7 +199,10 @@ void loop()
 		}
 		else
 		{
+			/* code */
 		}
+		last = millis();
+		irrecv.resume();
 	}
 }
 
@@ -228,11 +242,18 @@ void run(int Speed)
 	digitalWrite(L_Motor_PIN2, LOW);
 	digitalWrite(R_Motor_PIN1, LOW);
 	digitalWrite(R_Motor_PIN2, HIGH);
-	analogWrite(L_Motor_PIN1, Speed);
-	analogWrite(L_Motor_PIN2, 0);
-	analogWrite(R_Motor_PIN1, 0);
-	analogWrite(R_Motor_PIN2, Speed);
 }
+// void run(int Speed)
+// {
+// 	digitalWrite(L_Motor_PIN1, HIGH);
+// 	digitalWrite(L_Motor_PIN2, LOW);
+// 	digitalWrite(R_Motor_PIN1, LOW);
+// 	digitalWrite(R_Motor_PIN2, HIGH);
+// 	analogWrite(L_Motor_PIN1, Speed);
+// 	analogWrite(L_Motor_PIN2, 0);
+// 	analogWrite(R_Motor_PIN1, 0);
+// 	analogWrite(R_Motor_PIN2, Speed);
+// }
 
 /**
 * Function       back
@@ -248,13 +269,20 @@ void back(int Speed)
 {
 	digitalWrite(L_Motor_PIN1, LOW);
 	digitalWrite(L_Motor_PIN2, HIGH);
-	analogWrite(L_Motor_PIN1, 0);
-	analogWrite(L_Motor_PIN2, Speed);
 	digitalWrite(R_Motor_PIN1, HIGH);
 	digitalWrite(R_Motor_PIN2, LOW);
-	analogWrite(R_Motor_PIN1, Speed);
-	analogWrite(R_Motor_PIN2, 0);
 }
+// void back(int Speed)
+// {
+// 	digitalWrite(L_Motor_PIN1, LOW);
+// 	digitalWrite(L_Motor_PIN2, HIGH);
+// 	analogWrite(L_Motor_PIN1, 0);
+// 	analogWrite(L_Motor_PIN2, Speed);
+// 	digitalWrite(R_Motor_PIN1, HIGH);
+// 	digitalWrite(R_Motor_PIN2, LOW);
+// 	analogWrite(R_Motor_PIN1, Speed);
+// 	analogWrite(R_Motor_PIN2, 0);
+// }
 
 /**
 * Function       left
@@ -270,13 +298,20 @@ void left(int Speed)
 {
 	digitalWrite(L_Motor_PIN1, LOW);
 	digitalWrite(L_Motor_PIN2, LOW);
-	analogWrite(L_Motor_PIN1, 0);
-	analogWrite(L_Motor_PIN2, 0);
 	digitalWrite(R_Motor_PIN1, LOW);
 	digitalWrite(R_Motor_PIN2, HIGH);
-	analogWrite(R_Motor_PIN1, 0);
-	analogWrite(R_Motor_PIN2, Speed);
 }
+// void left(int Speed)
+// {
+// 	digitalWrite(L_Motor_PIN1, LOW);
+// 	digitalWrite(L_Motor_PIN2, LOW);
+// 	analogWrite(L_Motor_PIN1, 0);
+// 	analogWrite(L_Motor_PIN2, 0);
+// 	digitalWrite(R_Motor_PIN1, LOW);
+// 	digitalWrite(R_Motor_PIN2, HIGH);
+// 	analogWrite(R_Motor_PIN1, 0);
+// 	analogWrite(R_Motor_PIN2, Speed);
+// }
 
 /**
 * Function       right
@@ -292,13 +327,20 @@ void right(int Speed)
 {
 	digitalWrite(L_Motor_PIN1, HIGH);
 	digitalWrite(L_Motor_PIN2, LOW);
-	analogWrite(L_Motor_PIN1, Speed);
-	analogWrite(L_Motor_PIN2, 0);
 	digitalWrite(R_Motor_PIN1, LOW);
 	digitalWrite(R_Motor_PIN2, LOW);
-	analogWrite(R_Motor_PIN1, 0);
-	analogWrite(R_Motor_PIN2, 0);
 }
+// void right(int Speed)
+// {
+// 	digitalWrite(L_Motor_PIN1, HIGH);
+// 	digitalWrite(L_Motor_PIN2, LOW);
+// 	analogWrite(L_Motor_PIN1, Speed);
+// 	analogWrite(L_Motor_PIN2, 0);
+// 	digitalWrite(R_Motor_PIN1, LOW);
+// 	digitalWrite(R_Motor_PIN2, LOW);
+// 	analogWrite(R_Motor_PIN1, 0);
+// 	analogWrite(R_Motor_PIN2, 0);
+// }
 
 /**
 * Function       spin_left
@@ -314,13 +356,20 @@ void spin_left(int Speed)
 {
 	digitalWrite(L_Motor_PIN1, LOW);
 	digitalWrite(L_Motor_PIN2, HIGH);
-	analogWrite(L_Motor_PIN1, 0);
-	analogWrite(L_Motor_PIN2, Speed);
 	digitalWrite(R_Motor_PIN1, LOW);
 	digitalWrite(R_Motor_PIN2, HIGH);
-	analogWrite(R_Motor_PIN1, 0);
-	analogWrite(R_Motor_PIN2, Speed);
 }
+// void spin_left(int Speed)
+// {
+// 	digitalWrite(L_Motor_PIN1, LOW);
+// 	digitalWrite(L_Motor_PIN2, HIGH);
+// 	analogWrite(L_Motor_PIN1, 0);
+// 	analogWrite(L_Motor_PIN2, Speed);
+// 	digitalWrite(R_Motor_PIN1, LOW);
+// 	digitalWrite(R_Motor_PIN2, HIGH);
+// 	analogWrite(R_Motor_PIN1, 0);
+// 	analogWrite(R_Motor_PIN2, Speed);
+// }
 
 /**
 * Function       spin_right
@@ -336,13 +385,20 @@ void spin_right(int Speed)
 {
 	digitalWrite(L_Motor_PIN1, HIGH);
 	digitalWrite(L_Motor_PIN2, LOW);
-	analogWrite(L_Motor_PIN1, Speed);
-	analogWrite(L_Motor_PIN2, 0);
 	digitalWrite(R_Motor_PIN1, HIGH);
 	digitalWrite(R_Motor_PIN2, LOW);
-	analogWrite(R_Motor_PIN1, Speed);
-	analogWrite(R_Motor_PIN2, 0);
 }
+// void spin_right(int Speed)
+// {
+// 	digitalWrite(L_Motor_PIN1, HIGH);
+// 	digitalWrite(L_Motor_PIN2, LOW);
+// 	analogWrite(L_Motor_PIN1, Speed);
+// 	analogWrite(L_Motor_PIN2, 0);
+// 	digitalWrite(R_Motor_PIN1, HIGH);
+// 	digitalWrite(R_Motor_PIN2, LOW);
+// 	analogWrite(R_Motor_PIN1, Speed);
+// 	analogWrite(R_Motor_PIN2, 0);
+// }
 
 /**
 * Function       stop
@@ -358,13 +414,20 @@ void stop()
 {
 	digitalWrite(L_Motor_PIN1, LOW);
 	digitalWrite(L_Motor_PIN2, LOW);
-	analogWrite(L_Motor_PIN1, 0);
-	analogWrite(L_Motor_PIN2, 0);
 	digitalWrite(R_Motor_PIN1, LOW);
 	digitalWrite(R_Motor_PIN2, LOW);
-	analogWrite(R_Motor_PIN1, 0);
-	analogWrite(R_Motor_PIN2, 0);
 }
+// void stop()
+// {
+// 	digitalWrite(L_Motor_PIN1, LOW);
+// 	digitalWrite(L_Motor_PIN2, LOW);
+// 	analogWrite(L_Motor_PIN1, 0);
+// 	analogWrite(L_Motor_PIN2, 0);
+// 	digitalWrite(R_Motor_PIN1, LOW);
+// 	digitalWrite(R_Motor_PIN2, LOW);
+// 	analogWrite(R_Motor_PIN1, 0);
+// 	analogWrite(R_Motor_PIN2, 0);
+// }
 
 void dump(decode_results *results)
 {
