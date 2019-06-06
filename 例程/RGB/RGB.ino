@@ -7,6 +7,8 @@
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(MAX_LED, PIN, NEO_RGB + NEO_KHZ800);
 uint8_t i = 0;
 uint32_t color = strip.Color(0, 255, 0); //绿红蓝
+uint8_t brightness = 0;					 //LED的亮度
+uint8_t fadeAmount = 1;					 //亮度变化增量
 
 void setup()
 {
@@ -31,9 +33,11 @@ void loop()
 	// strip.show();
 	// delay(1000);
 
-	// water_light(255, 0, 0, 100);
+	water_light(255, 0, 0, 100);
 
 	horse_light(255, 0, 0, 100);
+
+	breathing_light(255, 1000, 5, 5);
 }
 
 /**
@@ -86,12 +90,11 @@ void water_light(int R, int G, int B, int time)
 	{
 		for (uint8_t j = 5; j >= i; j--)
 		{
-			strip.setPixelColor(j - 1, quench);
+			strip.setPixelColor(j - i, quench);
 			strip.show();
 			delay(time);
 		}
 	}
-	delay(100);
 }
 
 /**
@@ -110,12 +113,49 @@ void horse_light(int R, int G, int B, int time)
 {
 	uint32_t color = strip.Color(G, R, B);
 	uint32_t quench = strip.Color(0, 0, 0);
-	for (uint8_t i = 0; i < 5; i++)
+	for (uint8_t i = 0; i < 4; i++)
 	{
 		strip.setPixelColor(i, color);
 		strip.show();
 		delay(time);
 		strip.setPixelColor(i, quench);
 		strip.show();
+	}
+}
+
+/**
+* Function       breathing_light
+* @author        wusicaijuan
+* @date          2019.06.06
+* @brief         呼吸灯
+* @param[in1]    brightness
+* @param[in2]    time
+* @param[in3]    increament
+* @param[in4]    decreament
+* @retval        void
+* @par History   无
+*/
+void breathing_light(int brightness, int time, int increament, int decreament)
+{
+	uint32_t color;
+	for (int b = 0; b < brightness; b += increament)
+	{
+		color = strip.Color(b, 0, 0);
+		for (uint8_t i = 0; i < 4; i++)
+		{
+			strip.setPixelColor(i, color);
+		}
+		strip.show();
+		delay(time / (255 / decreament));
+	}
+	for (int b = 255; b > 0; b -= increament)
+	{
+		color = strip.Color(b, 0, 0);
+		for (uint8_t i = 0; i < 4; i++)
+		{
+			strip.setPixelColor(i, color);
+		}
+		strip.show();
+		delay(time / (255 / decreament));
 	}
 }
