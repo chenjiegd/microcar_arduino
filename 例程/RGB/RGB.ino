@@ -21,17 +21,19 @@ void loop()
 	// strip.setPixelColor(i, color);  //设置i的值控制点亮灯的序号，color控制灯的颜，这里是让0号灯为红色
 	// strip.show();
 
-	all_RGB(255, 0, 0);
-	delay(1000);
-	all_RGB(0, 255, 0);
-	delay(1000);
-	all_RGB(0, 0, 255);
-	delay(1000);
-	strip.clear();
-	strip.show();
-	delay(1000);
+	// all_RGB(255, 0, 0);
+	// delay(1000);
+	// all_RGB(0, 255, 0);
+	// delay(1000);
+	// all_RGB(0, 0, 255);
+	// delay(1000);
+	// strip.clear();
+	// strip.show();
+	// delay(1000);
 
 	// water_light(255, 0, 0, 100);
+
+	horse_light(255, 0, 0, 100);
 }
 
 /**
@@ -84,10 +86,36 @@ void water_light(int R, int G, int B, int time)
 	{
 		for (uint8_t j = 5; j >= i; j--)
 		{
-			strip.setPixelColor(j-1, quench);
+			strip.setPixelColor(j - 1, quench);
 			strip.show();
 			delay(time);
 		}
 	}
 	delay(100);
+}
+
+/**
+* Function       horse_light
+* @author        wusicaijuan
+* @date          2019.06.06
+* @brief         跑马灯
+* @param[in1]    R
+* @param[in2]    G
+* @param[in3]    B
+* @param[in4]    time
+* @retval        void
+* @par History   无
+*/
+void horse_light(int R, int G, int B, int time)
+{
+	uint32_t color = strip.Color(G, R, B);
+	uint32_t quench = strip.Color(0, 0, 0);
+	for (uint8_t i = 0; i < 5; i++)
+	{
+		strip.setPixelColor(i, color);
+		strip.show();
+		delay(time);
+		strip.setPixelColor(i, quench);
+		strip.show();
+	}
 }
