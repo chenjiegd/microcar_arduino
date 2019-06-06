@@ -136,16 +136,17 @@ void ReadColor() //传感器获取颜色
 	Red = ((unsigned int)(ColorData[1] & 0xff) << 8 | (ColorData[0] & 0xff)); //2.06
 	Green = ((unsigned int)(ColorData[3] & 0xff) << 8 | (ColorData[2] & 0xff));
 	Blue = ((unsigned int)(ColorData[5] & 0xff) << 8 | (ColorData[4] & 0xff));
-
-	if (Red > 4500)
-		Red = 4500; //4500.7600.4600分别是检测到纯白色纸张时，所检测到的校准值，如果颜色识别不准确可以修改这里的校准值。
-	if (Green > 7600)
-		Green = 7600;
-	if (Blue > 4600)
-		Blue = 4600;
-	val_red = map(Red, 0, 4500, 0, 255);
-	val_blue = map(Blue, 0, 4600, 0, 255);
-	val_green = map(Green, 0, 7600, 0, 255);
+	printf("R:%d, G:%d, B:%d\n", Red, Green, Blue);									 //串口打印数据
+	if (Red > 1822)
+		Red = 1822; //4500.7600.4600分别是检测到纯白色纸张时，所检测到的校准值，如果颜色识别不准确可以修改这里的校准值。
+	if (Green > 3482)
+		Green = 3482;
+	if (Blue > 2665)
+		Blue = 2665;
+	val_red = map(Red, 0, 1822, 0, 255);
+	val_green = map(Green, 0, 3482, 0, 255);
+	val_blue = map(Blue, 0, 2665, 0, 255);
+	
 
 	if (val_red > val_green && val_red > val_blue)
 	{
@@ -167,7 +168,7 @@ void ReadColor() //传感器获取颜色
 		val_green /= 2;
 	}
 
-	printf("R:%d, G:%d, B:%d\n", Red, Green, Blue);									 //串口打印数据
+	
 	printf("val_red:%d, val_green:%d, val_blue:%d\n", val_red, val_green, val_blue); //串口打印数据
 }
 
@@ -202,6 +203,7 @@ void setup()
 void loop()
 {
 	// put your main code here, to run repeatedly:
+	// ReadColor();
 	uint8_t i = 0, a = 0;
 	uint32_t color = strip.Color(val_green, val_red, val_blue); // 绿红蓝
 	while (a < MAX_LED)
