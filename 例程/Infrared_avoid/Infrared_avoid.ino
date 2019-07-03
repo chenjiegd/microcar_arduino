@@ -124,7 +124,7 @@ void infrared_avoid(int infrared_data, int run_speed, int spin_right_speed)
 * Function       keysacn
 * @author        wusicaijuan
 * @date          2019.06.04
-* @brief         测距
+* @brief         按键扫描
 * @param[in1]    void
 * @retval        void
 * @par History   无
